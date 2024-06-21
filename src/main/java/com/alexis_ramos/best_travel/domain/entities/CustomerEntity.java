@@ -1,14 +1,10 @@
 package com.alexis_ramos.best_travel.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name="customer")
 @NoArgsConstructor
@@ -28,5 +24,35 @@ public class CustomerEntity implements Serializable {
     private Integer totalFlights;
     private Integer totalLodgings;
     private Integer totalTours;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "customer"
+    )
+    private List<TicketEntity> tickets;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "customer"
+    )
+    private List<ReservationEntity> reservations;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "customer"
+    )
+    private List<TourEntity> tours;
 
 }

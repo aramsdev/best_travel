@@ -2,10 +2,7 @@ package com.alexis_ramos.best_travel.domain.entities;
 
 import com.alexis_ramos.best_travel.util.AeroLine;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,6 +29,9 @@ public class FlyEntity {
     private String destinyName;
     @Enumerated(EnumType.STRING)
     private AeroLine aeroLine;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
