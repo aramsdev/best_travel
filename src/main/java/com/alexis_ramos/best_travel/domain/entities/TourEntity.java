@@ -6,31 +6,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-@Entity(name = "hotel")
+@Entity(name = "tour")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class HotelEntity {
+public class TourEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 50)
-    private String name;
-    @Column(length = 50)
-    private String address;
-    private Integer rating;
-    private BigDecimal price;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true,
-            mappedBy = "hotel"
+            mappedBy = "tour"
     )
     private List<ReservationEntity> reservations;
-
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "tour"
+    )
+    private List<TicketEntity> tickets;
+    @ManyToOne
+    @JoinColumn(name = "id_customer")
+    private CustomerEntity customer;
 }
